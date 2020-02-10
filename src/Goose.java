@@ -20,7 +20,9 @@ public class Goose extends GamePiece {
     public void setGooseNum(int goosenum) { this.goosenum = goosenum; }
 
     @Override
-    public ArrayList<String> canMoveTo(ArrayList<String> movelist, GamePiece[] pieces, int index, int boardsize) {
+    public ArrayList<String> canMoveTo(GamePiece[] pieces, int index, int boardsize) {
+        ArrayList<String> movelist = new ArrayList<String>();
+
         // private boolean methods here to figure out available moves for goose
 
         return movelist;
