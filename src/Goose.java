@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Goose extends GamePiece {
-    private final String MOVE1 = "";
-    private final String MOVE2 = "";
-    private final String MOVE3 = "";
+    private final String MOVE_FOWARD = "move forward";
+    private final String MOVE_LEFT = "move left";
+    private final String MOVE_RIGHT = "move right";
     private int goosenum;
 
     public Goose(){
@@ -11,18 +11,16 @@ public class Goose extends GamePiece {
         goosenum = 0;
     } // end of constructor
 
-    public Goose(int xpos, int ypos, char name){
+    public Goose(int xpos, int ypos, char name, int goosenum){
         super(xpos, ypos, name);
-        goosenum = 0;
+        this.goosenum = goosenum;
     } // end of constructor
 
-    public int getGoosenum() { return goosenum; }
-    public void setGoosenum(int goosenum) { this.goosenum = goosenum; }
+    public int getGooseNum() { return goosenum; }
+    public void setGooseNum(int goosenum) { this.goosenum = goosenum; }
 
     @Override
-    public ArrayList<String> canMoveTo(GamePiece[] pieces, int index, int boardsize) {
-        ArrayList<String> movelist = new ArrayList<String>();
-
+    public ArrayList<String> canMoveTo(ArrayList<String> movelist, GamePiece[] pieces, int index, int boardsize) {
         // private boolean methods here to figure out available moves for goose
 
         return movelist;

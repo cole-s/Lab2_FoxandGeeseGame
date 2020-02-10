@@ -17,7 +17,7 @@ public abstract class GamePiece {
         this.name = name;
     } // end of constructor
 
-    public ArrayList<String> canMoveTo(GamePiece[] pieces, int index, int boardsize){
+    public ArrayList<String> canMoveTo(ArrayList<String> movelist, GamePiece[] pieces, int index, int boardsize){
         return null;
     } // end of canMoveTo method
 

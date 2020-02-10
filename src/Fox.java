@@ -1,2 +1,2 @@
-public class Fox {
+public class Fox extends GamePiece {
 }
