@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 
 public abstract class GamePiece {
-    private int xpos;
-    private int ypos;
+    private int currow;
+    private int curcol;
     private char name;
 
     public GamePiece(){
-        xpos = 0;
-        ypos = 0;
+        currow = 0;
+        curcol = 0;
         name = 'P';
     } // end of constructor
 
     public GamePiece(int xpos, int ypos, char name){
-        this.xpos = xpos;
-        this.ypos = ypos;
+        this.currow = xpos;
+        this.curcol = ypos;
         this.name = name;
     } // end of constructor
 
@@ -21,10 +21,10 @@ public abstract class GamePiece {
         return null;
     } // end of canMoveTo method
 
-    public int getXPos() { return xpos; }
-    public void setXPos(int xpos) { this.xpos = xpos; }
-    public int getYPos() { return ypos; }
-    public void setYPos(int ypos) { this.ypos = ypos; }
+    public int getRowPos() { return currow; }
+    public void setXPos(int xpos) { this.currow = xpos; }
+    public int getColPos() { return curcol; }
+    public void setYPos(int ypos) { this.curcol = ypos; }
     public char getName() { return name; }
     public void setName(char name) { this.name = name; }
 } // end of GamePiece Class
