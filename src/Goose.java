@@ -29,13 +29,13 @@ public class Goose extends GamePiece {
 
 
     private boolean isFowLeftOpen(GamePiece[] pieces, int sameindex, int boardsize){
-        if(pieces[sameindex].getXPos() == 0 || pieces[sameindex].getYPos() == 0) {
+        if(pieces[sameindex].getRowPos() == 0 || pieces[sameindex].getColPos() == 0) {
             return false;
         } // end of if statement
 
         for(int index = 0; index < pieces.length; index++){
             if(index != sameindex){
-                if(pieces[index].getXPos() == pieces[sameindex].getXPos()-1 && pieces[index].getYPos() == pieces[sameindex].getYPos()-1){
+                if(pieces[index].getRowPos() == pieces[sameindex].getRowPos()-1 && pieces[index].getColPos() == pieces[sameindex].getColPos()-1){
                     return false;
                 } // end of if statement
             } // end of if statement
@@ -46,14 +46,14 @@ public class Goose extends GamePiece {
 
 
     private boolean isFowRightOpen(GamePiece[] pieces, int sameindex, int boardsize){
-        if(pieces[sameindex].getXPos() == boardsize-1 || pieces[sameindex].getYPos() == 0) {
+        if(pieces[sameindex].getRowPos() == boardsize-1 || pieces[sameindex].getColPos() == 0) {
             return false;
         } // end of if statement
 
         for(int index = 0; index < pieces.length; index++){
             if(index != sameindex){
 
-                if(pieces[index].getXPos() == pieces[sameindex].getXPos()+1 && pieces[index].getYPos() == pieces[sameindex].getYPos()-1){
+                if(pieces[index].getRowPos() == pieces[sameindex].getRowPos()+1 && pieces[index].getColPos() == pieces[sameindex].getColPos()-1){
                     return false;
                 } // end of if statement
             } // end of if statement
