@@ -3,3 +3,6 @@
 *.xml
 .idea/.name
 *.class
+/bin/
+.project
+.classpath

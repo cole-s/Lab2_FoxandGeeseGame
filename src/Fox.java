@@ -39,13 +39,13 @@ public class Fox extends GamePiece {
     } // end of canMoveTo method
 
     private boolean isFowLeftOpen(GamePiece[] pieces, int sameindex, int boardsize){
-        if(pieces[sameindex].getRowPos() == 0 || pieces[sameindex].getColPos() == boardsize-1) {
+        if(pieces[sameindex].getColPos() == 0 || pieces[sameindex].getRowPos() == boardsize-1) {
             return false;
         } // end of if statement
 
         for(int index = 0; index < pieces.length; index++){
             if(index != sameindex){
-                if(pieces[index].getRowPos() == pieces[sameindex].getRowPos()-1 && pieces[index].getColPos() == pieces[sameindex].getColPos()+1){
+                if(pieces[index].getColPos() == pieces[sameindex].getColPos()-1 && pieces[index].getRowPos() == pieces[sameindex].getRowPos()+1){
                     return false;
                 } // end of if statement
             } // end of if statement
@@ -61,7 +61,7 @@ public class Fox extends GamePiece {
 
         for(int index = 0; index < pieces.length; index++){
             if(index != sameindex){
-                if(pieces[index].getRowPos() == pieces[sameindex].getRowPos()+1 && pieces[index].getColPos() == pieces[sameindex].getColPos()+1){
+                if(pieces[index].getColPos() == pieces[sameindex].getColPos()+1 && pieces[index].getRowPos() == pieces[sameindex].getRowPos()+1){
                     return false;
                 } // end of if statement
             } // end of if statement
@@ -77,7 +77,7 @@ public class Fox extends GamePiece {
 
         for(int index = 0; index < pieces.length; index++){
             if(index != sameindex){
-                if(pieces[index].getRowPos() == pieces[sameindex].getRowPos()-1 && pieces[index].getColPos() == pieces[sameindex].getColPos()-1){
+                if(pieces[index].getColPos() == pieces[sameindex].getColPos()-1 && pieces[index].getRowPos() == pieces[sameindex].getRowPos()-1){
                     return false;
                 } // end of if statement
             } // end of if statement
@@ -87,13 +87,13 @@ public class Fox extends GamePiece {
     } // end of isBackLeftOpen method
     
     private boolean isBackRightOpen(GamePiece[] pieces, int sameindex, int boardsize){
-        if(pieces[sameindex].getRowPos() == boardsize-1 || pieces[sameindex].getColPos() == 0) {
+        if(pieces[sameindex].getColPos() == boardsize-1 || pieces[sameindex].getRowPos() == 0) {
             return false;
         } // end of if statement
 
         for(int index = 0; index < pieces.length; index++){
             if(index != sameindex){
-                if(pieces[index].getRowPos() == pieces[sameindex].getRowPos()+1 && pieces[index].getColPos() == pieces[sameindex].getColPos()-1){
+                if(pieces[index].getColPos() == pieces[sameindex].getColPos()+1 && pieces[index].getRowPos() == pieces[sameindex].getRowPos()-1){
                     return false;
                 } // end of if statement
             } // end of if statement
