@@ -5,7 +5,7 @@ public class FoxAndGeese {
         System.out.println(test.getName() + " " + ((Goose) test).getGooseNum());
 
         GamePiece[] pieces = new GamePiece[5];
-        pieces[0] = new Fox(0, 5, 'F');
+        pieces[0] = new Fox(0, 2, 'F');
         pieces[1] = new Goose(7, 0, '1', 1);
         pieces[2] = new Goose(7, 2, '2', 2);
         pieces[3] = new Goose(7, 4, '3', 3);
@@ -13,5 +13,7 @@ public class FoxAndGeese {
 
         BoardState root = new BoardState(pieces);
         root.printBoard();
+        
+        Control.startGame();
     } // end of main
 } // end of FoxAndGeese class
