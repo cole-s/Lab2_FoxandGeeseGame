@@ -23,6 +23,13 @@ public class Goose extends GamePiece {
         ArrayList<String> movelist = new ArrayList<String>();
 
         // private boolean methods here to figure out available moves for goose
+        if(isFowLeftOpen(pieces, index, boardsize)){
+            movelist.add("" + (this.goosenum + index-1) + " " + MOVE_FOWLEFT);
+        }
+
+        if(isFowRightOpen(pieces, index, boardsize)){
+            movelist.add("" + (this.goosenum + index-1) + " " + MOVE_FOWRIGHT);
+        }
 
         return movelist;
     } // end of canMoveTo method
