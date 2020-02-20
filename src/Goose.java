@@ -28,7 +28,7 @@ public class Goose extends GamePiece {
         }
 
         if(isFowRightOpen(pieces, index, boardsize)){
-            movelist.add("" + (this.goosenum + index-1) + " " + MOVE_FOWRIGHT);
+            movelist.add("" + (this.goosenum + index-1) + ". Goose " + this.goosenum + " "+ MOVE_FOWRIGHT);
         }
 
         return movelist;

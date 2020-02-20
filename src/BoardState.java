@@ -2,26 +2,27 @@ import java.util.ArrayList;
 
 public class BoardState {
     private final int BOARD_SIZE = 8;
+    private final char B = '\u25A0';
     private ArrayList<BoardState> nextstates;
     private GamePiece[] pieces = new GamePiece[5];
-    private static char[][] currentBoard = {
-            {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}};
+    private char[][] currentBoard = {
+            {B, ' ', B, ' ', B, ' ', B, ' '},
+            {' ', B, ' ', B, ' ', B, ' ', B},
+            {B, ' ', B, ' ', B, ' ', B, ' '},
+            {' ', B, ' ', B, ' ', B, ' ', B},
+            {B, ' ', B, ' ', B, ' ', B, ' '},
+            {' ', B, ' ', B, ' ', B, ' ', B},
+            {B, ' ', B, ' ', B, ' ', B, ' '},
+            {' ', B, ' ', B, ' ', B, ' ', B}};
 
-    public BoardState(GamePiece[] pieces){
+    public BoardState(GamePiece[] pieces) {
         nextstates = new ArrayList<BoardState>();
         copyPieces(pieces);
     }
 
-    private void copyPieces(GamePiece[] pieces){
-        for(int index = 0; index < this.pieces.length; index++){
-            if(index == 0){
+    private void copyPieces(GamePiece[] pieces) {
+        for (int index = 0; index < this.pieces.length; index++) {
+            if (index == 0) {
                 this.pieces[index] = new Fox(pieces[index].getRowPos(), pieces[index].getColPos(), pieces[index].getName());
             } else {
                 this.pieces[index] = new Goose(pieces[index].getRowPos(), pieces[index].getColPos(),
