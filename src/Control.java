@@ -6,7 +6,7 @@ public class Control {
     private static boolean foxturn = true; // check if it's the fox's turn
     private static boolean foxplayer = true; // player is the fox
     
-    private static boolean canMove(ArrayList<String> moves, String input) {
+    private static boolean canMove(ArrayList<String> moves, String input, int index) {
     	for (String move: moves) {
     		if (input.equals(move.substring(0,1))) {
     			// do the actual move (change piece coordinates
@@ -54,8 +54,8 @@ public class Control {
     	            	for (String move: foxmoves) {
             	            System.out.println("\t" + move);
         	            }
-        	            String playermove = input.nextLine();
-        	            selectmove = !canMove(foxmoves, playermove);
+        	            String playerinput = input.nextLine();
+        	            selectmove = !canMove(foxmoves, playerinput, 0);
     	            }
     				
     			} else { // otherwise let computer go

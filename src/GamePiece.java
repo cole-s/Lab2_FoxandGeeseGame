@@ -21,6 +21,10 @@ public abstract class GamePiece {
         return null;
     } // end of canMoveTo method
 
+    public void movePieceTo(String input) {
+    	
+    }
+    
     public int getRowPos() { return currow; }
     public void setXPos(int xpos) { this.currow = xpos; }
     public int getColPos() { return curcol; }

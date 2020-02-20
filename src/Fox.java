@@ -102,5 +102,36 @@ public class Fox extends GamePiece {
         return true;
     } // end of isBackRightOpen method
     
+    public void movePieceTo(String input) {
+    	switch (input) {
+    		case "1":	moveFowLeft();
+    					break;
+    		case "2":	moveFowRight();
+						break;
+    		case "3":	moveBackLeft();
+						break;
+    		case "4":	moveBackRight();
+						break;
+			default:	System.out.println("Very Bad Fox Move Happened");
+						break;
+    	}
+    }
+    
+    private void moveFowLeft() {
+    	this.getRowPos() = 
+    			
+    }
+    
+    private void moveFowRight() {
+    	
+    }
+    
+    private void moveBackLeft() {
+    	
+    }
+    
+    private void moveBackRight() {
+    	
+    }
     
 } // end of Fox class
