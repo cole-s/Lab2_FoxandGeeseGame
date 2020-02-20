@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Fox extends GamePiece {
-    private final String MOVE_FOWLEFT = "move forward left";
-    private final String MOVE_FOWRIGHT = "move forward right";
-    private final String MOVE_BACKLEFT = "move back left";
-    private final String MOVE_BACKRIGHT = "move back right";
+    private final String MOVE_FOWLEFT = "1. move forward left";
+    private final String MOVE_FOWRIGHT = "2. move forward right";
+    private final String MOVE_BACKLEFT = "3. move back left";
+    private final String MOVE_BACKRIGHT = "4. move back right";
     
     public Fox(){
         super();
@@ -19,6 +19,21 @@ public class Fox extends GamePiece {
         ArrayList<String> movelist = new ArrayList<String>();
 
         // private boolean methods here to figure out available moves for Fox
+        if(isFowLeftOpen(pieces, index, boardsize)){
+            movelist.add(MOVE_FOWLEFT);
+        }
+
+        if(isFowRightOpen(pieces, index, boardsize)){
+            movelist.add(MOVE_FOWRIGHT);
+        }
+
+        if(isBackLeftOpen(pieces, index, boardsize)){
+            movelist.add(MOVE_BACKLEFT);
+        }
+
+        if(isBackRightOpen(pieces, index, boardsize)){
+            movelist.add(MOVE_BACKRIGHT);
+        }
 
         return movelist;
     } // end of canMoveTo method
