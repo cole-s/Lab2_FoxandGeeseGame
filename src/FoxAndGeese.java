@@ -14,6 +14,6 @@ public class FoxAndGeese {
         BoardState root = new BoardState(pieces);
         root.printBoard();
         
-        Control.startGame();
+        Control.startGame(pieces);
     } // end of main
 } // end of FoxAndGeese class

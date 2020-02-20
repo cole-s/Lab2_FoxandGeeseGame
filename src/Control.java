@@ -5,7 +5,7 @@ public class Control {
     private static boolean foxturn = true; // check if it's the fox's turn
     private static boolean foxplayer = true; // player is the fox
     
-    public static boolean startGame() {
+    public static boolean startGame(GamePiece[] pieces) {
     	Scanner input = new Scanner(System.in);
     	
         System.out.println("Please select which side you want to play as:");
@@ -15,10 +15,10 @@ public class Control {
         boolean selectside = true; //player must input a 1 or 2
         
         while (selectside) {
-            switch (input.nextInt()) { //set foxplayer variable
-	        	case 1:	selectside = false; // default value already true
+            switch (input.nextLine()) { //set foxplayer variable
+	        	case "1":	selectside = false; // default value already true
 	        			break; 
-	        	case 2:	foxplayer = false;
+	        	case "2":	foxplayer = false;
 	        			selectside = false;
 	        			break;
 	        	default:System.out.println("Please select a 1 or 2:");
@@ -26,7 +26,7 @@ public class Control {
             }
         }
     	
-    	while (true) { // we need to create a method to check board state if end of game, then replace this true
+    	while (true) { // if fox can move or not at the end ( Y = boardsize-1) then next turn
     		
             boolean selectmove = true; //player must input a valid number
             
@@ -38,17 +38,17 @@ public class Control {
     	            // discuss with Cole on figuring out logic for not allowing invalid moves to be selected in switch
     	            
     	            while (selectmove) {
-        	            switch (input.nextInt()) {
-	        	            case 1:
+        	            switch (input.nextLine()) {
+	        	            case "1":
 	        	            		selectmove = false;
 	        	            		break;
-	        	            case 2:
+	        	            case "2":
         	            			selectmove = false;
 	        	            		break;
-	        	            case 3:
+	        	            case "3":
         	            			selectmove = false;
 	        	            		break;
-	        	            case 4:
+	        	            case "4":
         	            			selectmove = false;
 	        	            		break;
 	        	            default:System.out.println("Please select a valid number");
@@ -69,17 +69,17 @@ public class Control {
     				// We need to pull the moves from the Geese class + print here
     				
     	            while (selectmove) {
-        	            switch (input.nextInt()) {
-	        	            case 1:
+        	            switch (input.nextLine()) {
+	        	            case "1":
 	        	            		selectmove = false;
 	        	            		break;
-	        	            case 2:
+	        	            case "2":
         	            			selectmove = false;
 	        	            		break;
-	        	            case 3:
+	        	            case "3":
         	            			selectmove = false;
 	        	            		break;
-	        	            case 4:
+	        	            case "4":
         	            			selectmove = false;
 	        	            		break;
 	        	            default:System.out.println("Please select a valid number");
