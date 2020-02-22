@@ -74,7 +74,31 @@ public class Control {
         return false;
     }
 
-    public static boolean startGame(GamePiece[] pieces, BoardState board) {
+    private static boolean checkGameOver(GamePiece[] pieces) {
+    	if (pieces[0].getRowPos() == 7) {
+    		System.out.println("Fox Player Wins!");
+    		return true;
+    	}
+    	
+    	if (pieces[0].canMoveTo(pieces, 0, BOARD_SIZE).isEmpty()) {
+    		System.out.println("Geese Player Wins!");
+    		return true;	
+    	}	
+    	
+    	boolean goose1moves = pieces[1].canMoveTo(pieces, 1, BOARD_SIZE).isEmpty();
+    	boolean goose2moves = pieces[2].canMoveTo(pieces, 2, BOARD_SIZE).isEmpty();
+    	boolean goose3moves = pieces[3].canMoveTo(pieces, 3, BOARD_SIZE).isEmpty();
+    	boolean goose4moves = pieces[4].canMoveTo(pieces, 4, BOARD_SIZE).isEmpty();
+    	
+    	if (goose1moves & goose2moves & goose3moves & goose4moves) {
+    		System.out.println("Fox Player Wins!");
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
+    public static void startGame(GamePiece[] pieces, BoardState board) {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Please select which side you want to play as:");
@@ -98,7 +122,8 @@ public class Control {
             }
         }
 		board.printBoard();
-        while (true) { // if fox can move or not at the end ( Y = boardsize-1) then next turn
+		
+        while (!checkGameOver(pieces)) { // if fox can move or not at the end ( Y = boardsize-1) then next turn
 
             boolean selectmove = true; //player must input a valid number
 
