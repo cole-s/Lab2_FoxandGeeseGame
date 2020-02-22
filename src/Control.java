@@ -6,12 +6,67 @@ public class Control {
     private static boolean foxturn = true; // check if it's the fox's turn
     private static boolean foxplayer = true; // player is the fox
 
-    private static boolean canMove(ArrayList<String> moves, String input, GamePiece piece) {
+    private static boolean canMoveFox(ArrayList<String> moves, String input, GamePiece piece) {
         for (String move : moves) {
             if (input.equals(move.substring(0, 1))) {
-                // do the actual move (change piece coordinates
 				piece.movePieceTo(input);
                 return true;
+            }
+        }
+
+        System.out.println("Please select a valid number");
+        return false;
+    }
+    
+    private static boolean canMoveGoose(ArrayList<String> moves, String input, GamePiece[] pieces) {
+        for (String move : moves) {
+            
+        	if (input.equals(move.substring(0, 1))) {
+            	if (input.equals("1") || input.equals("2")) {
+
+    				pieces[1].movePieceTo(input);
+    				return true;
+            	}
+            	
+            	if (input.equals("3") || input.equals("4")) {
+            		
+            		String movenum;
+            		if (input.equals("3")) {
+            			movenum = "1"; 
+            		} else {
+            			movenum = "2";
+            		}
+            		
+    				pieces[2].movePieceTo(movenum);
+    				return true;
+            	}
+            	
+            	if (input.equals("5") || input.equals("6")) {
+            		String movenum;
+            		if (input.equals("5")) {
+            			movenum = "1"; 
+            		} else {
+            			movenum = "2";
+            		}
+            		
+    				pieces[3].movePieceTo(movenum);
+    				return true;
+            	}
+            	
+            	if (input.equals("7") || input.equals("8")) {
+            		String movenum;
+            		if (input.equals("7")) {
+            			movenum = "1"; 
+            		} else {
+            			movenum = "2";
+            		}
+            		
+    				pieces[4].movePieceTo(movenum);
+    				return true;
+            	}
+            	
+
+                return false;
             }
         }
 
@@ -59,45 +114,48 @@ public class Control {
                             System.out.println("\t" + move);
                         }
                         String playerinput = input.nextLine();
-                        selectmove = !canMove(foxmoves, playerinput, pieces[0]);
+                        selectmove = !canMoveFox(foxmoves, playerinput, pieces[0]);
                     }
 
                 } else { // otherwise let computer go
                     // some AI Program
+                	
+                    System.out.println("AI Has Moved.");
                 }
-
+  
             } else { // if geese's turn
                 if (!foxplayer) { // if player is geese
 
-                    System.out.println("Please select your move:");
-                    // We need to pull the moves from the Geese class + print here
+               
+                    ArrayList<String> geesemoves = new ArrayList<String>();
 
+                    for (int geese = 1; geese < 5; geese++) {
+                    	for (int movenum = 0; movenum < pieces[geese].canMoveTo(pieces, geese, BOARD_SIZE).size(); movenum++) {
+                    		geesemoves.add(pieces[geese].canMoveTo(pieces, geese, BOARD_SIZE).get(movenum));
+                    	}
+                    }
+                    	
+                    
                     while (selectmove) {
-                        switch (input.nextLine()) {
-                            case "1":
-                                selectmove = false;
-                                break;
-                            case "2":
-                                selectmove = false;
-                                break;
-                            case "3":
-                                selectmove = false;
-                                break;
-                            case "4":
-                                selectmove = false;
-                                break;
-                            default:
-                                System.out.println("Please select a valid number");
-                                break;
+                        System.out.println("Please select your move:");
+                        for (String move: geesemoves) {
+                            System.out.println("\t" + move);
                         }
+                        String playerinput = input.nextLine();
+                        
+                        selectmove = !canMoveGoose(geesemoves, playerinput, pieces);
                     }
 
                 } else { // otherwise let computer go
                     // some AI Program
+                	
+                    System.out.println("AI Has Moved.");
                 }
 
 
             }
+            foxturn = !foxturn;
+            
 			board = new BoardState(pieces);
             board.printBoard();
         }

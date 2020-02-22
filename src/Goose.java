@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Goose extends GamePiece {
-    private final String MOVE_FOWLEFT = "move forward left";
-    private final String MOVE_FOWRIGHT = "move forward right";
+    private final String MOVE_DOWNLEFT = "move down left";
+    private final String MOVE_DOWNRIGHT = "move down right";
     private int goosenum;
 
     public Goose(){
@@ -24,11 +24,11 @@ public class Goose extends GamePiece {
 
         // private boolean methods here to figure out available moves for goose
         if(isFowLeftOpen(pieces, index, boardsize)){
-            movelist.add("" + (this.goosenum + index-1) + " " + MOVE_FOWLEFT);
+            movelist.add("" + (this.goosenum + index-1) + ". Goose " + this.goosenum + " "+ MOVE_DOWNLEFT);
         }
 
         if(isFowRightOpen(pieces, index, boardsize)){
-            movelist.add("" + (this.goosenum + index-1) + ". Goose " + this.goosenum + " "+ MOVE_FOWRIGHT);
+            movelist.add("" + (this.goosenum + index) + ". Goose " + this.goosenum + " "+ MOVE_DOWNRIGHT);
         }
 
         return movelist;
@@ -53,14 +53,14 @@ public class Goose extends GamePiece {
 
 
     private boolean isFowRightOpen(GamePiece[] pieces, int sameindex, int boardsize){
-        if(pieces[sameindex].getRowPos() == boardsize-1 || pieces[sameindex].getColPos() == 0) {
+        if(pieces[sameindex].getColPos() == boardsize-1 || pieces[sameindex].getRowPos() == 0) {
             return false;
         } // end of if statement
 
         for(int index = 0; index < pieces.length; index++){
             if(index != sameindex){
 
-                if(pieces[index].getRowPos() == pieces[sameindex].getRowPos()+1 && pieces[index].getColPos() == pieces[sameindex].getColPos()-1){
+                if(pieces[index].getColPos() == pieces[sameindex].getColPos()+1 && pieces[index].getRowPos() == pieces[sameindex].getRowPos()-1){
                     return false;
                 } // end of if statement
             } // end of if statement
@@ -68,4 +68,30 @@ public class Goose extends GamePiece {
         
         return true;
     }// end of isFowRightOpen method
+    
+    public void movePieceTo(String input) {
+        int goosemove = Integer.parseInt(input);
+    	
+    	switch (goosemove) {
+            case 1:
+                moveFowLeft();
+                break;
+            case 2:
+                moveFowRight();
+                break;
+            default:
+                System.out.println("Very Bad Goose Move Happened");
+                break;
+        }
+    }
+    
+    private void moveFowLeft() {
+        this.setRowPos(this.getRowPos() - 1);
+        this.setColPos(this.getColPos() - 1);
+    }
+
+    private void moveFowRight() {
+        this.setRowPos(this.getRowPos() - 1);
+        this.setColPos(this.getColPos() + 1);
+    }
 } // end of Goose class
