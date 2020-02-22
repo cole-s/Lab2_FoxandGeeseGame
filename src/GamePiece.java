@@ -1,51 +1,51 @@
 import java.util.ArrayList;
 
 public abstract class GamePiece {
-    private int currow;
-    private int curcol;
-    private char name;
+	private int currow;
+	private int curcol;
+	private char name;
 
-    public GamePiece() {
-        currow = 0;
-        curcol = 0;
-        name = 'P';
-    } // end of constructor
+	public GamePiece() {
+		currow = 0;
+		curcol = 0;
+		name = 'P';
+	} // end of constructor
 
-    public GamePiece(int xpos, int ypos, char name) {
-        this.currow = xpos;
-        this.curcol = ypos;
-        this.name = name;
-    } // end of constructor
+	public GamePiece(int xpos, int ypos, char name) {
+		this.currow = xpos;
+		this.curcol = ypos;
+		this.name = name;
+	} // end of constructor
 
-    public ArrayList<String> canMoveTo(GamePiece[] pieces, int index, int boardsize) {
-        return null;
-    } // end of canMoveTo method
+	public ArrayList<String> canMoveTo(GamePiece[] pieces, int index, int boardsize) {
+		return null;
+	} // end of canMoveTo method
 
-    public void movePieceTo(String input) {
+	public void movePieceTo(String input) {
 
-    }
+	}
 
-    public int getRowPos() {
-        return currow;
-    }
+	public int getRowPos() {
+		return currow;
+	}
 
-    public void setRowPos(int row) {
-        this.currow = row;
-    }
+	public void setRowPos(int row) {
+		this.currow = row;
+	}
 
-    public int getColPos() {
-        return curcol;
-    }
+	public int getColPos() {
+		return curcol;
+	}
 
-    public void setColPos(int col) {
-        this.curcol = col;
-    }
+	public void setColPos(int col) {
+		this.curcol = col;
+	}
 
-    public char getName() {
-        return name;
-    }
+	public char getName() {
+		return name;
+	}
 
-    public void setName(char name) {
-        this.name = name;
-    }
+	public void setName(char name) {
+		this.name = name;
+	}
 } // end of GamePiece Class
