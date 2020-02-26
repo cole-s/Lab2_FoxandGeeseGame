@@ -9,7 +9,7 @@ public class FoxAndGeese {
 		pieces[4] = new Goose(7, 7, '4', 4);
 
 		BoardState root = new BoardState(pieces);
-
+		
 		Control.startGame(pieces, root);
 	} // end of main
 } // end of FoxAndGeese class

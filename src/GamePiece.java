@@ -25,6 +25,11 @@ public abstract class GamePiece {
 
 	}
 
+	public ArrayList<GamePiece[]> canAIMoveTo(GamePiece[] pieces, int index, int boardsize) {
+		System.out.println("canAIMoveTo error");
+		return null;
+	}
+	
 	public int getRowPos() {
 		return currow;
 	}
@@ -47,5 +52,19 @@ public abstract class GamePiece {
 
 	public void setName(char name) {
 		this.name = name;
+	}
+	
+	public static GamePiece[] copyGamePieces (GamePiece[] src) {
+		GamePiece[] dest = new GamePiece[5];
+		
+		for (int index = 0; index < src.length; index++) {
+			if (index == 0) {
+				dest[0] = new Fox(src[0].getRowPos(), src[0].getColPos(), 'F');
+			} else {
+				dest[index] = new Goose(src[index].getRowPos(), src[index].getColPos(), src[index].getName(), index);
+			}
+		}
+		
+		return dest;
 	}
 } // end of GamePiece Class

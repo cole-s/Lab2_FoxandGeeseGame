@@ -146,4 +146,38 @@ public class Fox extends GamePiece {
 		this.setColPos(this.getColPos() + 1);
 	}
 
+	public ArrayList<GamePiece[]> canAIMoveTo(GamePiece[] pieces, int index, int boardsize) {
+		ArrayList<GamePiece[]> piecelist = new ArrayList<GamePiece[]>();
+
+		// private boolean methods here to figure out available moves for Fox
+		if (isFowLeftOpen(pieces, index, boardsize)) {
+			GamePiece[] temppieces = GamePiece.copyGamePieces(pieces);
+			((Fox) temppieces[0]).moveFowLeft();
+			
+			piecelist.add(temppieces);
+		}
+
+		if (isFowRightOpen(pieces, index, boardsize)) {
+			GamePiece[] temppieces = GamePiece.copyGamePieces(pieces);
+			((Fox) temppieces[0]).moveFowRight();
+			
+			piecelist.add(temppieces);
+		}
+
+		if (isBackLeftOpen(pieces, index, boardsize)) {
+			GamePiece[] temppieces = GamePiece.copyGamePieces(pieces);			
+			((Fox) temppieces[0]).moveBackLeft();
+			
+			piecelist.add(temppieces);
+		}
+
+		if (isBackRightOpen(pieces, index, boardsize)) {
+			GamePiece[] temppieces = GamePiece.copyGamePieces(pieces);
+			((Fox) temppieces[0]).moveBackRight();
+			
+			piecelist.add(temppieces);
+		}
+
+		return piecelist;
+	}
 } // end of Fox class
