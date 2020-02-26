@@ -99,4 +99,25 @@ public class Goose extends GamePiece {
 		this.setRowPos(this.getRowPos() - 1);
 		this.setColPos(this.getColPos() + 1);
 	}
+	
+	public ArrayList<GamePiece[]> canAIMoveTo(GamePiece[] pieces, int index, int boardsize) {
+		ArrayList<GamePiece[]> piecelist = new ArrayList<GamePiece[]>();
+
+		// private boolean methods here to figure out available moves for Fox
+		if (isFowLeftOpen(pieces, index, boardsize)) {
+			GamePiece[] temppieces = GamePiece.copyGamePieces(pieces);
+			((Goose) temppieces[index]).moveFowLeft();
+			
+			piecelist.add(temppieces);
+		}
+
+		if (isFowRightOpen(pieces, index, boardsize)) {
+			GamePiece[] temppieces = GamePiece.copyGamePieces(pieces);
+			((Goose) temppieces[index]).moveFowRight();
+			
+			piecelist.add(temppieces);
+		}
+
+		return piecelist;
+	}
 } // end of Goose class
