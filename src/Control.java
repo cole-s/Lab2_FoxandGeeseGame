@@ -73,15 +73,15 @@ public class Control {
 		return false;
 	}
 
-	private static boolean checkGameOver(GamePiece[] pieces) {
+	public static int checkGameOver(GamePiece[] pieces) {
 		if (pieces[0].getRowPos() == 7) {
-			System.out.println("Fox Player Wins!");
-			return true;
+			//System.out.println("Fox Player Wins!");
+			return 1;
 		}
 
 		if (pieces[0].canMoveTo(pieces, 0, BOARD_SIZE).isEmpty()) {
-			System.out.println("Geese Player Wins!");
-			return true;
+			//System.out.println("Geese Player Wins!");
+			return 2;
 		}
 
 		boolean goose1moves = pieces[1].canMoveTo(pieces, 1, BOARD_SIZE).isEmpty();
@@ -90,11 +90,11 @@ public class Control {
 		boolean goose4moves = pieces[4].canMoveTo(pieces, 4, BOARD_SIZE).isEmpty();
 
 		if (goose1moves & goose2moves & goose3moves & goose4moves) {
-			System.out.println("Fox Player Wins!");
-			return true;
+			//System.out.println("Fox Player Wins!");
+			return 1;
 		}
 
-		return false;
+		return 0;
 	}
 
 	public static void startGame(GamePiece[] pieces, BoardState board) {
@@ -122,7 +122,7 @@ public class Control {
 		}
 		board.printBoard();
 
-		while (!checkGameOver(pieces)) { // if fox can move or not at the end ( Y = boardsize-1) then next turn
+		while (checkGameOver(pieces) == 0) { // if fox can move or not at the end ( Y = boardsize-1) then next turn
 
 			boolean selectmove = true; // player must input a valid number
 

@@ -66,11 +66,17 @@ public class BoardState {
      * @return
      */
     public GamePiece[] getNextMove(boolean foxturn, int maxdepth) {
-    	int best = 0;
+    	int bestvalue = miniMax(this, foxturn, 0, maxdepth);
+    	int bestindex = 0;
+    	
+    	for (int index = 0; index < frontier.size(); index++) {
+    		if (frontier.get(index).getStateValue() == bestvalue) {
+    			bestindex = index;
+    		}
+    	}
     	
     	
-    	
-    	return frontier.get(best).getPieces();
+    	return frontier.get(bestindex).getPieces();
     }
 
     /**
@@ -82,46 +88,63 @@ public class BoardState {
      * @return
      */
     private int miniMax(BoardState curboard, boolean foxturn, int curdepth, int maxdepth) {
-    	int value = -1; // defalut error value
+    	int value = -1; // default error value
 
         // base case(s)
-    	if (curdepth == maxdepth) {
+    	if (curdepth == maxdepth || Control.checkGameOver(curboard.getPieces()) != 0) {
     		return curboard.getValue(curboard);
     	} // end of if statement
         // or if end of game
 
     	//find board states list here
         // loop through each pieces' for the corresponding turn and add valid pieces setup to new board state in frontier
-        /*
-        GamePiece[] temp = new GamePiece[5];
+        
+        ArrayList<GamePiece[]> tempstates = new ArrayList<GamePiece[]>();
         if (foxturn) {
-                temp = GamePiece.copyGamePieces(curboard.getPieces()[0].canAIMoveTo(pieces, index = 0, BOARD_SIZE));
-                for each x in temp
-                    frontier.add(new BoardState(x));
-        }
-
-        *** Same will be done for goose turn, but will loop for each index with a goose piece
-         */
-
-
-    	//for each state in frontier
-            if (foxturn) { // if the current turn relates to fox (MAX part)
-                // set value to node with lowest value (recursion)
-                /*
-                 for each state in frontier
+                tempstates = (GamePiece.copyGamePieces(curboard.getPieces())[0].canAIMoveTo(pieces, 0, BOARD_SIZE));
+                for (GamePiece[] state: tempstates) {
+                    frontier.add(new BoardState(state));
+                }
+                
+                for (BoardState state: frontier) {
                     state.setStateValue(miniMax(state, !foxturn, curdepth+1, maxdepth));
-
-
-                 for each state in frontier
-                        find state with best value
-                 */
-
-            } else { // if the turn relates to Geese (MIN part)
-                // set value to node with highest value (recursion)
-            } // end of if-else statements
-        // end of for loop
-    	
+            	}
+                
+                for (int index = 0; index < frontier.size(); index++) {
+                    if (index == 0) {
+                    	value = frontier.get(index).getStateValue();
+                    } // end of if statement
+                    
+                    if(value < frontier.get(index).getStateValue()) {
+                    	value = frontier.get(index).getStateValue();
+                    } // end of if statement
+            	}
+                
+        } else {
+        	for (int index = 1; index < 5; index++) {
+                tempstates = (GamePiece.copyGamePieces(curboard.getPieces())[index].canAIMoveTo(pieces, index, BOARD_SIZE));
+                for (GamePiece[] state: tempstates) {
+                    frontier.add(new BoardState(state));
+                }
+        	}
+        	
+            for (BoardState state: frontier) {
+                state.setStateValue(miniMax(state, !foxturn, curdepth+1, maxdepth));
+        	}
+        	
+            for (int index = 0; index < frontier.size(); index++) {
+                if (index == 0) {
+                	value = frontier.get(index).getStateValue();
+                } // end of if statement
+                
+                if(value > frontier.get(index).getStateValue()) {
+                	value = frontier.get(index).getStateValue();
+                } // end of if statement
+        	}
+        }
+        
     	return value;
+    	
     } // end of miniMax
 
     /**
@@ -132,9 +155,19 @@ public class BoardState {
     private int getValue(BoardState board) {
     	int value = 0;
 
+    	int gameover = Control.checkGameOver(board.getPieces());
+    	if (gameover == 1) {
+    		value = 999;
+    		return value;
+    	} else if (gameover == 2) {
+    		value = -999;
+    		return value;
+    	}
+    	
     	// farther from goal (fox) is negative points by a factor of 10, ex: -70, -60, ..., etc.
         // subtract distance from geese to certain spots here as well (each corner of the fox corresponds to a certain
         // goose
+
 
     	return value;
     } // end of getValue
