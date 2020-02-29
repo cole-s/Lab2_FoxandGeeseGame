@@ -2,185 +2,191 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Control {
-	private static final int BOARD_SIZE = 8;
-	private static boolean foxturn = true; // check if it's the fox's turn
-	private static boolean foxplayer = true; // player is the fox
+    private static final int BOARD_SIZE = 8; // default size for board
+    private static boolean foxturn = true; // check if it's the fox's turn
+    private static boolean foxplayer = true; // player is the fox
 
-	private static boolean canMoveFox(ArrayList<String> moves, String input, GamePiece piece) {
-		for (String move : moves) {
-			if (input.equals(move.substring(0, 1))) {
-				piece.movePieceTo(input);
-				return true;
-			}
-		}
+	/**
+	 *
+	 * @param moves
+	 * @param input
+	 * @param piece
+	 * @return
+	 */
+    private static boolean canMoveFox(ArrayList<String> moves, String input, GamePiece piece) {
+        for (String move : moves) {
+            if (input.equals(move.substring(0, 1))) { // if the input is a valid move
+                piece.movePieceTo(input);
+                return true;
+            } // end of if statement
+        } // end of for loop
 
-		System.out.println("Please select a valid number");
-		return false;
-	}
+        System.out.println("Please select a valid number");
+        return false;
+    } // end of canMoveFox Method
 
-	private static boolean canMoveGoose(ArrayList<String> moves, String input, GamePiece[] pieces) {
-		for (String move : moves) {
+    private static boolean canMoveGoose(ArrayList<String> moves, String input, GamePiece[] pieces) {
+        for (String move : moves) {
+            if (input.equals(move.substring(0, 1))) {
+                if (input.equals("1") || input.equals("2")) {
 
-			if (input.equals(move.substring(0, 1))) {
-				if (input.equals("1") || input.equals("2")) {
+                    pieces[1].movePieceTo(input);
+                    return true;
+                }
 
-					pieces[1].movePieceTo(input);
-					return true;
-				}
+                if (input.equals("3") || input.equals("4")) {
 
-				if (input.equals("3") || input.equals("4")) {
+                    String movenum;
+                    if (input.equals("3")) {
+                        movenum = "1";
+                    } else {
+                        movenum = "2";
+                    }
 
-					String movenum;
-					if (input.equals("3")) {
-						movenum = "1";
-					} else {
-						movenum = "2";
-					}
+                    pieces[2].movePieceTo(movenum);
+                    return true;
+                }
 
-					pieces[2].movePieceTo(movenum);
-					return true;
-				}
+                if (input.equals("5") || input.equals("6")) {
+                    String movenum;
+                    if (input.equals("5")) {
+                        movenum = "1";
+                    } else {
+                        movenum = "2";
+                    }
 
-				if (input.equals("5") || input.equals("6")) {
-					String movenum;
-					if (input.equals("5")) {
-						movenum = "1";
-					} else {
-						movenum = "2";
-					}
+                    pieces[3].movePieceTo(movenum);
+                    return true;
+                }
 
-					pieces[3].movePieceTo(movenum);
-					return true;
-				}
+                if (input.equals("7") || input.equals("8")) {
+                    String movenum;
+                    if (input.equals("7")) {
+                        movenum = "1";
+                    } else {
+                        movenum = "2";
+                    }
 
-				if (input.equals("7") || input.equals("8")) {
-					String movenum;
-					if (input.equals("7")) {
-						movenum = "1";
-					} else {
-						movenum = "2";
-					}
+                    pieces[4].movePieceTo(movenum);
+                    return true;
+                }
 
-					pieces[4].movePieceTo(movenum);
-					return true;
-				}
+                return false;
+            }
+        }
 
-				return false;
-			}
-		}
+        System.out.println("Please select a valid number");
+        return false;
+    }
 
-		System.out.println("Please select a valid number");
-		return false;
-	}
+    public static int checkGameOver(GamePiece[] pieces) {
+        if (pieces[0].getRowPos() == 7) {
+            //System.out.println("Fox Player Wins!");
+            return 1;
+        }
 
-	public static int checkGameOver(GamePiece[] pieces) {
-		if (pieces[0].getRowPos() == 7) {
-			//System.out.println("Fox Player Wins!");
-			return 1;
-		}
+        if (pieces[0].canMoveTo(pieces, 0, BOARD_SIZE).isEmpty()) {
+            //System.out.println("Geese Player Wins!");
+            return 2;
+        }
 
-		if (pieces[0].canMoveTo(pieces, 0, BOARD_SIZE).isEmpty()) {
-			//System.out.println("Geese Player Wins!");
-			return 2;
-		}
+        boolean goose1moves = pieces[1].canMoveTo(pieces, 1, BOARD_SIZE).isEmpty();
+        boolean goose2moves = pieces[2].canMoveTo(pieces, 2, BOARD_SIZE).isEmpty();
+        boolean goose3moves = pieces[3].canMoveTo(pieces, 3, BOARD_SIZE).isEmpty();
+        boolean goose4moves = pieces[4].canMoveTo(pieces, 4, BOARD_SIZE).isEmpty();
 
-		boolean goose1moves = pieces[1].canMoveTo(pieces, 1, BOARD_SIZE).isEmpty();
-		boolean goose2moves = pieces[2].canMoveTo(pieces, 2, BOARD_SIZE).isEmpty();
-		boolean goose3moves = pieces[3].canMoveTo(pieces, 3, BOARD_SIZE).isEmpty();
-		boolean goose4moves = pieces[4].canMoveTo(pieces, 4, BOARD_SIZE).isEmpty();
+        if (goose1moves & goose2moves & goose3moves & goose4moves) {
+            //System.out.println("Fox Player Wins!");
+            return 1;
+        }
 
-		if (goose1moves & goose2moves & goose3moves & goose4moves) {
-			//System.out.println("Fox Player Wins!");
-			return 1;
-		}
+        return 0;
+    }
 
-		return 0;
-	}
+    public static void startGame(GamePiece[] pieces, BoardState board) {
+        Scanner input = new Scanner(System.in);
 
-	public static void startGame(GamePiece[] pieces, BoardState board) {
-		Scanner input = new Scanner(System.in);
+        System.out.println("Please select which side you want to play as:");
+        System.out.println("\t1) Fox");
+        System.out.println("\t2) Geese");
 
-		System.out.println("Please select which side you want to play as:");
-		System.out.println("\t1) Fox");
-		System.out.println("\t2) Geese");
+        boolean selectside = true; // player must input a 1 or 2
 
-		boolean selectside = true; // player must input a 1 or 2
+        while (selectside) {
+            switch (input.nextLine()) { // set foxplayer variable
+                case "1":
+                    selectside = false; // default value already true
+                    break;
+                case "2":
+                    foxplayer = false;
+                    selectside = false;
+                    break;
+                default:
+                    System.out.println("Please select a 1 or 2:");
+                    break;
+            }
+        }
+        board.printBoard();
 
-		while (selectside) {
-			switch (input.nextLine()) { // set foxplayer variable
-			case "1":
-				selectside = false; // default value already true
-				break;
-			case "2":
-				foxplayer = false;
-				selectside = false;
-				break;
-			default:
-				System.out.println("Please select a 1 or 2:");
-				break;
-			}
-		}
-		board.printBoard();
+        while (checkGameOver(pieces) == 0) { // if fox can move or not at the end ( Y = boardsize-1) then next turn
 
-		while (checkGameOver(pieces) == 0) { // if fox can move or not at the end ( Y = boardsize-1) then next turn
+            boolean selectmove = true; // player must input a valid number
 
-			boolean selectmove = true; // player must input a valid number
+            if (foxturn) { // if fox's turn
+                if (foxplayer) { // if player is fox
 
-			if (foxturn) { // if fox's turn
-				if (foxplayer) { // if player is fox
+                    ArrayList<String> foxmoves = pieces[0].canMoveTo(pieces, 0, BOARD_SIZE);
 
-					ArrayList<String> foxmoves = pieces[0].canMoveTo(pieces, 0, BOARD_SIZE);
+                    while (selectmove) {
+                        System.out.println("Please select your move:");
+                        for (String move : foxmoves) {
+                            System.out.println("\t" + move);
+                        }
+                        String playerinput = input.nextLine();
+                        selectmove = !canMoveFox(foxmoves, playerinput, pieces[0]);
+                    }
 
-					while (selectmove) {
-						System.out.println("Please select your move:");
-						for (String move : foxmoves) {
-							System.out.println("\t" + move);
-						}
-						String playerinput = input.nextLine();
-						selectmove = !canMoveFox(foxmoves, playerinput, pieces[0]);
-					}
+                } else { // otherwise let computer go
+                    // some AI Program
+                    pieces = board.getNextMove(false, 2);
+                    System.out.println("AI Has Moved.");
+                }
 
-				} else { // otherwise let computer go
-					// some AI Program
+            } else { // if geese's turn
+                if (!foxplayer) { // if player is geese
 
-					System.out.println("AI Has Moved.");
-				}
+                    ArrayList<String> geesemoves = new ArrayList<String>();
 
-			} else { // if geese's turn
-				if (!foxplayer) { // if player is geese
+                    for (int geese = 1; geese < 5; geese++) {
+                        for (int movenum = 0; movenum < pieces[geese].canMoveTo(pieces, geese, BOARD_SIZE)
+                                .size(); movenum++) {
+                            geesemoves.add(pieces[geese].canMoveTo(pieces, geese, BOARD_SIZE).get(movenum));
+                        }
+                    }
 
-					ArrayList<String> geesemoves = new ArrayList<String>();
+                    while (selectmove) {
+                        System.out.println("Please select your move:");
+                        for (String move : geesemoves) {
+                            System.out.println("\t" + move);
+                        }
+                        String playerinput = input.nextLine();
 
-					for (int geese = 1; geese < 5; geese++) {
-						for (int movenum = 0; movenum < pieces[geese].canMoveTo(pieces, geese, BOARD_SIZE)
-								.size(); movenum++) {
-							geesemoves.add(pieces[geese].canMoveTo(pieces, geese, BOARD_SIZE).get(movenum));
-						}
-					}
+                        selectmove = !canMoveGoose(geesemoves, playerinput, pieces);
+                    }
 
-					while (selectmove) {
-						System.out.println("Please select your move:");
-						for (String move : geesemoves) {
-							System.out.println("\t" + move);
-						}
-						String playerinput = input.nextLine();
+                } else { // otherwise let computer go
+                    // some AI Program
+                    pieces = board.getNextMove(true, 2);
+                    System.out.println("AI Has Moved.");
+                }
 
-						selectmove = !canMoveGoose(geesemoves, playerinput, pieces);
-					}
+            }
+            foxturn = !foxturn;
 
-				} else { // otherwise let computer go
-					// some AI Program
+            board = new BoardState(pieces);
+            board.printBoard();
+        }
 
-					System.out.println("AI Has Moved.");
-				}
-
-			}
-			foxturn = !foxturn;
-
-			board = new BoardState(pieces);
-			board.printBoard();
-		}
-
-	}
+    }
 
 }
