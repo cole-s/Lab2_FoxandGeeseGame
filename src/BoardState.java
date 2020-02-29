@@ -78,7 +78,7 @@ public class BoardState {
      * @return
      */
     public GamePiece[] getNextMove(boolean foxturn, int maxdepth) {
-        int bestvalue = miniMax(this, foxturn, 0, maxdepth);
+        int bestvalue = miniMax(this, foxturn, 1, maxdepth);
         int bestindex = 0;
 
         for (int index = 0; index < this.getFrontier().size(); index++) {
@@ -112,7 +112,7 @@ public class BoardState {
 
         ArrayList<GamePiece[]> tempstates = new ArrayList<GamePiece[]>();
         if (foxturn) {
-            tempstates = (GamePiece.copyGamePieces(curboard.getPieces())[0].canAIMoveTo(pieces, 0, BOARD_SIZE));
+            tempstates = (GamePiece.copyGamePieces(curboard.getPieces())[0].canAIMoveTo(curboard.getPieces(), 0, BOARD_SIZE));
             for (GamePiece[] state : tempstates) {
                 curboard.getFrontier().add(new BoardState(state));
             }
@@ -133,7 +133,7 @@ public class BoardState {
 
         } else {
             for (int index = 1; index < 5; index++) {
-                tempstates = (GamePiece.copyGamePieces(curboard.getPieces())[index].canAIMoveTo(pieces, index, BOARD_SIZE));
+                tempstates = (GamePiece.copyGamePieces(curboard.getPieces())[index].canAIMoveTo(curboard.getPieces(), index, BOARD_SIZE));
                 for (GamePiece[] state : tempstates) {
                     curboard.getFrontier().add(new BoardState(state));
                 }
@@ -176,7 +176,7 @@ public class BoardState {
 
         int fox = 0, go1 = 1, go2 = 2, go3 = 3, go4 = 4; // indexes for all the pieces
 
-        value = (board.getPieces()[fox].getRowPos() * 10) - 70; // distance from goal
+        value = (board.getPieces()[fox].getRowPos() * 100) - 700; // distance from goal
         // geese distance from trapping fox
 
         int rowtarget, coltarget, rowcurrent, colcurrent;
@@ -185,22 +185,22 @@ public class BoardState {
         coltarget = board.getPieces()[fox].getColPos();
         rowcurrent = board.getPieces()[go1].getRowPos();
         colcurrent = board.getPieces()[go1].getColPos();
-        value += getDistance(rowtarget + 1, coltarget - 1, rowcurrent, colcurrent);
+        value -= getDistance(rowtarget + 1, coltarget - 1, rowcurrent, colcurrent);
         // upper left
 
         rowcurrent = board.getPieces()[go2].getRowPos();
         colcurrent = board.getPieces()[go2].getColPos();
-        value += getDistance(rowtarget - 1, coltarget - 1, rowcurrent, colcurrent);
+        value -= getDistance(rowtarget - 1, coltarget - 1, rowcurrent, colcurrent);
         // lower left
 
         rowcurrent = board.getPieces()[go3].getRowPos();
         colcurrent = board.getPieces()[go3].getColPos();
-        value += getDistance(rowtarget - 1, coltarget + 1, rowcurrent, colcurrent);
+        value -= getDistance(rowtarget - 1, coltarget + 1, rowcurrent, colcurrent);
         // lower right
 
         rowcurrent = board.getPieces()[go4].getRowPos();
         colcurrent = board.getPieces()[go4].getColPos();
-        value += getDistance(rowtarget + 1, coltarget + 1, rowcurrent, colcurrent);
+        value -= getDistance(rowtarget + 1, coltarget + 1, rowcurrent, colcurrent);
         // upper right
 
         return value;
