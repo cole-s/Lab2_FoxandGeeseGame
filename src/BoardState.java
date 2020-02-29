@@ -80,9 +80,27 @@ public class BoardState {
     public GamePiece[] getNextMove(boolean foxturn, int maxdepth) {
         int bestvalue = miniMax(this, foxturn, 1, maxdepth);
         int bestindex = 0;
-
+        
+        if (bestvalue == 999 && foxturn) {
+            for (int index = 0; index < this.getFrontier().size(); index++) {
+                if ((this.getFrontier().get(index).pieces[0].getRowPos() == 7)) {
+                    bestindex = index;
+                    return this.getFrontier().get(bestindex).getPieces();
+                } // end of if statement
+            } // end of for loop
+        }
+        
+        else if (bestvalue == -999 && !foxturn) {
+            for (int index = 0; index < this.getFrontier().size(); index++) {
+            	if (this.getFrontier().get(index).pieces[0].canMoveTo(pieces, 0, BOARD_SIZE).isEmpty()) {
+            		bestindex = index;
+                    return this.getFrontier().get(bestindex).getPieces();
+                } // end of if statement
+            } // end of for loop
+        }
+        
         for (int index = 0; index < this.getFrontier().size(); index++) {
-            if (this.getFrontier().get(index).getStateValue() == bestvalue) {
+            if ((this.getFrontier().get(index).getStateValue() == bestvalue)) {
                 bestindex = index;
             } // end of if statement
         } // end of for loop
@@ -177,8 +195,8 @@ public class BoardState {
         int fox = 0, go1 = 1, go2 = 2, go3 = 3, go4 = 4; // indexes for all the pieces
 
         value = (board.getPieces()[fox].getRowPos() * 100) - 700; // distance from goal
-        // geese distance from trapping fox
 
+        // geese distance from trapping fox
         int rowtarget, coltarget, rowcurrent, colcurrent;
 
         rowtarget = board.getPieces()[fox].getRowPos();
