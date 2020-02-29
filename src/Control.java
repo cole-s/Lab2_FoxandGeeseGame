@@ -148,7 +148,7 @@ public class Control {
 
                 } else { // otherwise let computer go
                     // some AI Program
-                    pieces = board.getNextMove(false, 2);
+                    pieces = board.getNextMove(true, 6);
                     System.out.println("AI Has Moved.");
                 }
 
@@ -176,7 +176,7 @@ public class Control {
 
                 } else { // otherwise let computer go
                     // some AI Program
-                    pieces = board.getNextMove(true, 2);
+                    pieces = board.getNextMove(false, 6);
                     System.out.println("AI Has Moved.");
                 }
 

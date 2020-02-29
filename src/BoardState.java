@@ -21,6 +21,8 @@ public class BoardState {
         copyPieces(pieces);
     } // end of constructor
 
+    private ArrayList<BoardState> getFrontier() { return this.frontier; }
+
     // Getters and Setters for the BoardState
     public GamePiece[] getPieces() {
         return pieces;
@@ -79,14 +81,14 @@ public class BoardState {
         int bestvalue = miniMax(this, foxturn, 0, maxdepth);
         int bestindex = 0;
 
-        for (int index = 0; index < frontier.size(); index++) {
-            if (frontier.get(index).getStateValue() == bestvalue) {
+        for (int index = 0; index < this.getFrontier().size(); index++) {
+            if (this.getFrontier().get(index).getStateValue() == bestvalue) {
                 bestindex = index;
             } // end of if statement
         } // end of for loop
 
 
-        return frontier.get(bestindex).getPieces();
+        return this.getFrontier().get(bestindex).getPieces();
     } // end of getNextMove
 
     /**
@@ -98,6 +100,7 @@ public class BoardState {
      */
     private int miniMax(BoardState curboard, boolean foxturn, int curdepth, int maxdepth) {
         int value = -1; // default error value
+        //frontier = new ArrayList<BoardState>();
         // base case(s)
         if (curdepth == maxdepth || Control.checkGameOver(curboard.getPieces()) != 0) {
             return curboard.getValue(curboard);
@@ -111,20 +114,20 @@ public class BoardState {
         if (foxturn) {
             tempstates = (GamePiece.copyGamePieces(curboard.getPieces())[0].canAIMoveTo(pieces, 0, BOARD_SIZE));
             for (GamePiece[] state : tempstates) {
-                frontier.add(new BoardState(state));
+                curboard.getFrontier().add(new BoardState(state));
             }
 
-            for (int index = 0; index < frontier.size(); index++) {
-                frontier.get(index).setStateValue(miniMax(frontier.get(index), !foxturn, curdepth + 1, maxdepth));
+            for (int index = 0; index < curboard.getFrontier().size(); index++) {
+                curboard.getFrontier().get(index).setStateValue(miniMax(curboard.getFrontier().get(index), !foxturn, curdepth + 1, maxdepth));
             }
 
-            for (int index = 0; index < frontier.size(); index++) {
+            for (int index = 0; index < curboard.getFrontier().size(); index++) {
                 if (index == 0) {
-                    value = frontier.get(index).getStateValue();
+                    value = curboard.getFrontier().get(index).getStateValue();
                 } // end of if statement
 
-                if (value < frontier.get(index).getStateValue()) {
-                    value = frontier.get(index).getStateValue();
+                if (value < curboard.getFrontier().get(index).getStateValue()) {
+                    value = curboard.getFrontier().get(index).getStateValue();
                 } // end of if statement
             }
 
@@ -132,21 +135,21 @@ public class BoardState {
             for (int index = 1; index < 5; index++) {
                 tempstates = (GamePiece.copyGamePieces(curboard.getPieces())[index].canAIMoveTo(pieces, index, BOARD_SIZE));
                 for (GamePiece[] state : tempstates) {
-                    frontier.add(new BoardState(state));
+                    curboard.getFrontier().add(new BoardState(state));
                 }
             }
 
-            for (int index = 0; index < frontier.size(); index++) {
-                frontier.get(index).setStateValue(miniMax(frontier.get(index), !foxturn, curdepth + 1, maxdepth));
+            for (int index = 0; index < curboard.getFrontier().size(); index++) {
+                curboard.getFrontier().get(index).setStateValue(miniMax(curboard.getFrontier().get(index), !foxturn, curdepth + 1, maxdepth));
             }
 
-            for (int index = 0; index < frontier.size(); index++) {
+            for (int index = 0; index < curboard.getFrontier().size(); index++) {
                 if (index == 0) {
-                    value = frontier.get(index).getStateValue();
+                    value = curboard.getFrontier().get(index).getStateValue();
                 } // end of if statement
 
-                if (value > frontier.get(index).getStateValue()) {
-                    value = frontier.get(index).getStateValue();
+                if (value > curboard.getFrontier().get(index).getStateValue()) {
+                    value = curboard.getFrontier().get(index).getStateValue();
                 } // end of if statement
             }
         }
