@@ -19,8 +19,9 @@ public class BoardState {
     public BoardState(GamePiece[] pieces) {
         frontier = new ArrayList<BoardState>();
         copyPieces(pieces);
-    }
-    
+    } // end of constructor
+
+    // Getters and Setters for the BoardState
     public GamePiece[] getPieces() {
     	return pieces;
     }
@@ -29,8 +30,10 @@ public class BoardState {
     public void setStateValue(int statevalue) { this.statevalue = statevalue; }
 
     /**
-     *
+     * Method copyPieces
      * @param pieces
+     *
+     * copies array of GamePiece objects by value for use of multiple states
      */
     private void copyPieces(GamePiece[] pieces) {
         for (int index = 0; index < this.pieces.length; index++) {
