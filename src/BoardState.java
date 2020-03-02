@@ -27,7 +27,6 @@ public class BoardState {
     /**
      * Method: Constructor - BoardState
      * @param pieces - array of the game pieces currently in play
-     * @return nothing
      *
      * Constructor for the BoardState object
      */
