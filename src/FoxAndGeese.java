@@ -1,3 +1,7 @@
+import java.sql.SQLOutput;
+
+import static java.lang.Integer.parseInt;
+
 public class FoxAndGeese {
 	public static void main(String[] args) {
 
@@ -9,7 +13,21 @@ public class FoxAndGeese {
 		pieces[4] = new Goose(7, 7, '4', 4);
 
 		BoardState root = new BoardState(pieces);
-		
-		Control.startGame(pieces, root);
+		int depth = 0;
+		try{
+			int temp;
+			temp = parseInt(args[0]);
+			checkFormat(temp);
+			depth = temp;
+		} catch (NumberFormatException error) {
+			System.out.println("Incorrect format for depth argument default value set to 0");
+			depth = 0;
+		}
+		Control.startGame(pieces, root, depth*2);
 	} // end of main
+
+	private static void checkFormat(int src){
+		if(src < 0)
+			throw new NumberFormatException();
+	} // end of checkFormat method
 } // end of FoxAndGeese class

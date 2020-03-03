@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Class: BoardState
@@ -55,7 +56,7 @@ public class BoardState {
 
     /**
      * Method: setPieces
-     * @param pieces - list of current game pieces used in the BoardState Object
+     * @param pieces - GamePiece[] - list of current game pieces used in the BoardState Object
      *
      * copies the given GamePiece array by value into the BoardState's private GamePiece[]
      */
@@ -151,8 +152,29 @@ public class BoardState {
             } // end of if statement
         } // end of for loop
 
-        return this.getFrontier().get(bestindex).getPieces();
+        return this.getFrontier().size() != 0? this.getFrontier().get(bestindex).getPieces() : getRandomMove(foxturn);
     } // end of getNextMove
+
+    private GamePiece[] getRandomMove(boolean foxturn){
+        ArrayList<GamePiece[]> temp = new ArrayList<>();
+        if(foxturn){
+            temp = GamePiece.copyGamePieces(this.getPieces())[0].canAIMoveTo(this.getPieces(), 0, BOARD_SIZE);
+            for (GamePiece[] state : temp) {
+                this.getFrontier().add(new BoardState(state));
+            } // end of for loop
+        } else {
+            for (int index = 1; index < 5; index++) { // goes through each move possible for each goose GamePiece object
+                temp = (GamePiece.copyGamePieces(this.getPieces())[index].canAIMoveTo(this.getPieces(), index, BOARD_SIZE));
+                for (GamePiece[] state : temp) {
+                    this.getFrontier().add(new BoardState(state));
+                } // end of for loop
+            } // end of for loop
+        }
+        Random rand = new Random(System.nanoTime());
+        int random = rand.nextInt(this.getFrontier().size());
+
+        return this.getFrontier().get(random).getPieces();
+    }
 
     /**
      * Method: miniMax
@@ -169,7 +191,7 @@ public class BoardState {
         int value = -1; // default error value
 
         // base case(s)
-        if (curdepth == maxdepth || Control.checkGameOver(curboard.getPieces()) != 0) {
+        if (curdepth >= maxdepth || Control.checkGameOver(curboard.getPieces()) != 0) {
             return curboard.getValue(curboard);
         } // end of if statement
         // or if end of game

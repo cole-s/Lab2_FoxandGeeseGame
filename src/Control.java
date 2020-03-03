@@ -103,7 +103,7 @@ public class Control {
         return 0;
     }
 
-    public static void startGame(GamePiece[] pieces, BoardState board) {
+    public static void startGame(GamePiece[] pieces, BoardState board, int maxdepth) {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Please select which side you want to play as:");
@@ -148,7 +148,7 @@ public class Control {
 
                 } else { // otherwise let computer go
                     // some AI Program
-                    pieces = board.getNextMove(true, 6);
+                    pieces = board.getNextMove(true, maxdepth);
                     System.out.println("AI Has Moved.");
                 }
 
@@ -176,7 +176,7 @@ public class Control {
 
                 } else { // otherwise let computer go
                     // some AI Program
-                    pieces = board.getNextMove(false, 6);
+                    pieces = board.getNextMove(false, maxdepth);
                     System.out.println("AI Has Moved.");
                 }
 
