@@ -192,7 +192,7 @@ public class BoardState {
 
         // base case(s)
         if (curdepth >= maxdepth || Control.checkGameOver(curboard.getPieces()) != 0) {
-            return curboard.getValue(curboard);
+            return curboard.getValue(curboard, curdepth);
         } // end of if statement
         // or if end of game
 
@@ -258,21 +258,22 @@ public class BoardState {
     /**
      * Method: getValue
      * @param board - BoardState - current BoardState of the game for value to be calculated
+     * @param depth - int - current depth of the board state from the root
      * @return int - value of the current BoardState object based on heuristic algorithm
      *
      * Gets the value of the current board state given and calculates it to be used to determine best possible move for
      * A.I. Fox goes for largers value, while the geese try to get the lowest possible value
      */
-    private int getValue(BoardState board) {
+    private int getValue(BoardState board, int depth) {
         int value = 0; // value to be set
 
         int gameover = Control.checkGameOver(board.getPieces()); // is this a win condition
         if (gameover == 1) { // if fox wins
             value = 999;
-            return value;
+            return value - depth;
         } else if (gameover == 2) { // if geese win
             value = -999;
-            return value;
+            return value + depth;
         } // end of if-else statements
 
         int fox = 0, go1 = 1, go2 = 2, go3 = 3, go4 = 4; // indexes for all the pieces
